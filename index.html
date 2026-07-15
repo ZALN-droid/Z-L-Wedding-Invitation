@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intro</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            /* Background Image */
+            background: url("home-background.jpg") center center / cover no-repeat;
+        }
+
+        .stage {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            opacity: 1;
+            transition: opacity 1s ease;
+        }
+
+        .stage.fade-out {
+            opacity: 0;
+        }
+
+        .image {
+            position: absolute;
+            top: 50%;
+            width: 220px;
+            height: 220px;
+            object-fit: contain;
+            transform: translateY(-50%);
+            animation-duration: 2s;
+            animation-timing-function: ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        .left-image {
+            left: -260px;
+            animation-name: slideFromLeft;
+        }
+
+        .right-image {
+            right: -260px;
+            animation-name: slideFromRight;
+        }
+
+        @keyframes slideFromLeft {
+            to {
+                left: calc(50% - 220px);
+            }
+        }
+
+        @keyframes slideFromRight {
+            to {
+                right: calc(50% - 220px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="stage" id="stage">
+
+        <img src="left.png" class="image left-image" alt="Left Logo">
+        <img src="right.png" class="image right-image" alt="Right Logo">
+
+    </div>
+
+    <script>
+        window.addEventListener("load", () => {
+
+            // Wait for the animation to finish
+            setTimeout(() => {
+
+                // Fade out
+                document.getElementById("stage").classList.add("fade-out");
+
+                // Go to next page
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 1000);
+            }, 2500);
+
+        });
+    </script>
+
+</body>
+</html>

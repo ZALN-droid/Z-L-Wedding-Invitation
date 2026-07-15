@@ -16,11 +16,6 @@
         body {
             min-height: 100vh;
             overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            /* Background Image */
             background: url("home-background.jpg") center center / cover no-repeat;
         }
 
@@ -40,35 +35,41 @@
             position: absolute;
             top: 50%;
             width: 220px;
-            height: 220px;
-            object-fit: contain;
-            transform: translateY(-50%);
+            height: auto;
+
             animation-duration: 2s;
             animation-timing-function: ease-in-out;
             animation-fill-mode: forwards;
         }
 
+        /* Starts off the left side */
         .left-image {
             left: -260px;
+            transform: translateY(-50%);
             animation-name: slideFromLeft;
         }
 
+        /* Starts off the right side */
         .right-image {
-            right: -260px;
+            left: calc(100% + 260px);
+            transform: translateY(-50%);
             animation-name: slideFromRight;
         }
 
         @keyframes slideFromLeft {
             to {
-                left: calc(75% - 220px);
+                left: 50%;
+                transform: translate(-100%, -50%);
             }
         }
 
         @keyframes slideFromRight {
             to {
-                right: calc(75% - 220px);
+                left: 50%;
+                transform: translate(0, -50%);
             }
         }
+
     </style>
 </head>
 
@@ -84,20 +85,21 @@
     <script>
         window.addEventListener("load", () => {
 
-            // Wait for the animation to finish
+            // Wait for the logo animation
             setTimeout(() => {
 
-                // Fade out
                 document.getElementById("stage").classList.add("fade-out");
 
                 // Go to next page
                 setTimeout(() => {
                     window.location.href = "index.html";
                 }, 1000);
+
             }, 2500);
 
         });
     </script>
 
 </body>
+
 </html>

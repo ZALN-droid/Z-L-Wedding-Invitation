@@ -8,23 +8,26 @@
 
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         body {
+            min-height: 100vh;
             overflow: hidden;
-            width: 100% auto;
-            height: auto;
-            background: url("home-background.jpg") center center;
-            background-repeat: repeat-y;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            /* Background Image */
+            background: url("home-background.jpg") center center / cover no-repeat;
         }
 
         .stage {
             position: relative;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             opacity: 1;
             transition: opacity 1s ease;
         }
@@ -33,91 +36,69 @@
             opacity: 0;
         }
 
-        /* Container stays perfectly centred */
-        .logo-container {
+        .image {
             position: absolute;
             top: 50%;
-            left: 50%;
-            width: 500px;      /* Change this to make the logo area bigger/smaller */
-            height: 250px;
-            transform: translate(-50%, -50%);
-        }
-
-        /* These move */
-        .piece {
-            position: absolute;
-            top: 50%;
+            width: 220px;
+            height: 220px;
+            object-fit: contain;
             transform: translateY(-50%);
             animation-duration: 2s;
-            animation-fill-mode: forwards;
             animation-timing-function: ease-in-out;
+            animation-fill-mode: forwards;
         }
 
-        .piece img {
-            width: 220px;      /* Change logo size here */
-            height: auto;
-            display: block;
+        .left-image {
+            left: -260px;
+            animation-name: slideFromLeft;
         }
 
-        /* Starts off-screen inside the container */
-        .left-piece {
-            left: -300px;
-            animation-name: leftSlide;
+        .right-image {
+            right: -260px;
+            animation-name: slideFromRight;
         }
 
-        .right-piece {
-            left: 580px;
-            animation-name: rightSlide;
-        }
-
-        @keyframes leftSlide {
+        @keyframes slideFromLeft {
             to {
-                left: 40px;     /* Final position of left logo */
+                left: calc(50% - 220px);
             }
         }
 
-        @keyframes rightSlide {
+        @keyframes slideFromRight {
             to {
-                left: 240px;    /* Final position of right logo */
+                right: calc(50% - 220px);
             }
         }
-
     </style>
 </head>
 
 <body>
 
-<div class="stage" id="stage">
+    <div class="stage" id="stage">
 
-    <div class="logo-container">
-
-        <div class="piece left-piece">
-            <img src="left.png" alt="">
-        </div>
-
-        <div class="piece right-piece">
-            <img src="right.png" alt="">
-        </div>
+        <img src="left.png" class="image left-image" alt="Left Logo">
+        <img src="right.png" class="image right-image" alt="Right Logo">
 
     </div>
 
-</div>
+    <script>
+        window.addEventListener("load", () => {
 
-<script>
-window.addEventListener("load", () => {
+            // Wait for the animation to finish
+            setTimeout(() => {
 
-    setTimeout(() => {
+                // Fade out
+                document.getElementById("stage").classList.add("fade-out");
 
-        document.getElementById("stage").classList.add("fade-out");
+                // Go to next page
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 1000);
 
-        setTimeout(() => {
-            window.location.href = "index.html";
-        }, 1000);
+            }, 2500);
 
-    }, 2500);
-
-});
-</script>
+        });
+    </script>
 
 </body>
 </html>
